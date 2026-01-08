@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page d'accueil - DSI</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: white;
+    width: 420px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logos img {
+    height: 60px;
+}
+
+h1 {
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.info {
+    text-align: left;
+    background: #f7f8fc;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.info p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.info span {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAlBV1AvtjAnVWIrT0V_0K0-co9nqRUe6g",
+  authDomain: "my-project-marwa-16d47.firebaseapp.com",
+  projectId: "my-project-marwa-16d47",
+  storageBucket: "my-project-marwa-16d47.firebasestorage.app",
+  messagingSenderId: "779779927502",
+  appId: "1:779779927502:web:3ee758879c195b31734f9f",
+  measurementId: "G-47XVYHHBQX"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+<div class="card">
+
+    <div class="logos">
+        <img src="images.jpg" alt="Logo 1">
+        <img src="LOGO_TT_.jpg" alt="Logo 2">
+    </div>
+
+    <h1>Page d’accueil</h1>
+
+    <div class="info">
+        <p><span>Nom :</span> Hnaien</p>
+        <p><span>Prénom :</span> Marwa</p>
+        <p><span>Spécialité :</span> DSI</p>
+        <p><span>Établissement :</span> ISIT Kebili</p>
+        <p><span>Type de stage :</span> Stage de perfectionnement en Tunisie Telecom</p>
+        <p><span>Année universitaire :</span> 2025 / 2026</p>
+    </div>
+
+    <button>Accéder au projet</button>
+
+</div>
+
+</body>
+</html>
