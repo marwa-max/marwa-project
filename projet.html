@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Application de Localisation</title>
+<title>Application de Localisation Intelligente</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -33,11 +33,12 @@ body {
 /* CARD */
 .card {
     background: white;
-    margin: 15px;
-    padding: 20px;
-    border-radius: 12px;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    animation: fadeIn 1s ease;
+    text-align: center;
+    animation: fadeIn 0.8s ease;
 }
 
 @keyframes fadeIn {
@@ -45,29 +46,25 @@ body {
     to {opacity:1; transform: translateY(0);}
 }
 
-.card p {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
+.card h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
 }
 
-select, button {
+.option-btn {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #3498db;
-    color: white;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
+    background: #3498db;
+    color: white;
+    transition: 0.3s;
 }
 
-button:hover {
+.option-btn:hover {
     background: #2980b9;
 }
 
@@ -106,29 +103,17 @@ iframe {
 <!-- TOP -->
 <div class="top-bar">
     <img src="images.jpg">
-    <div class="title">📍 Application de Localisation</div>
+    <div class="title">📍 Application de Localisation Intelligente</div>
     <img src="LOGO_TT_.jpg">
 </div>
 
 <!-- CARD -->
 <div class="card">
-    <p>🏠 1️⃣ Sélectionnez votre gouvernorat — وين تسكن</p>
-    <select>
-        <option>Kebili</option>
-        <option>Tunis</option>
-        <option>Sfax</option>
-        <option>Sousse</option>
-        <option>Gabès</option>
-    </select>
+    <h2>Comment souhaitez-vous localiser votre position ?</h2>
 
-    <p>📌 2️⃣ Sélectionnez votre délégation — مركي دارك</p>
-    <select>
-        <option>Centre</option>
-        <option>Nord</option>
-        <option>Sud</option>
-    </select>
+    <button class="option-btn" onclick="openMap()">📍 Détecter ma position automatiquement</button>
 
-    <button onclick="openMap()">🔍 Vérifier la couverture</button>
+    <button class="option-btn" onclick="openMap()">🏠 Entrer mon adresse manuellement</button>
 </div>
 
 <div id="loading">⏳ Chargement de la carte...</div>
@@ -148,7 +133,7 @@ function openMap() {
     setTimeout(() => {
         document.getElementById("loading").style.display = "none";
         document.getElementById("map-container").style.display = "block";
-    }, 2000);
+    }, 1500);
 }
 </script>
 
