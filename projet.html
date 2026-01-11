@@ -8,102 +8,122 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #e0f7fa, #e1bee7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #fce4ec);
 }
 
 .top-bar {
-    background: white;
-    padding: 5px 15px;
+    background: #ffffffcc;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
-.top-bar img { height: 40px; }
+.top-bar img { height: 50px; }
 
 .title {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 700;
     color: #2c3e50;
 }
 
 .maps-container {
     display: flex;
-    gap: 10px;
-    padding: 10px;
+    gap: 15px;
+    padding: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 .map-box {
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    background: linear-gradient(to bottom, #ffffff, #fafafa);
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    margin-bottom: 10px;
+    width: 320px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.map-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 .map-box h3 {
     text-align: center;
-    margin: 3px 0;
-    font-size: 14px;
+    margin: 5px 0 10px;
+    font-size: 15px;
+    color: #34495e;
 }
 
 .map-box iframe {
     width: 100%;
-    height: 300px;
-    border: none;
-    border-radius: 8px;
+    height: 320px;
+    border: 2px solid #3498db33;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
 }
 
 .map-btn {
-    padding: 6px 8px;
-    font-size: 14px;
+    padding: 8px 10px;
+    font-size: 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: linear-gradient(135deg, #3498db, #5dade2);
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-bottom: 5px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    margin-bottom: 10px;
+    width: 90%;
 }
 
 .map-btn span {
     font-size: 12px;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .map-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #2e86c1, #2980b9);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
 .back {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
-    padding: 6px 12px;
-    border-radius: 8px;
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 14px;
+    border-radius: 12px;
     border: none;
     background: #3498db;
     color: white;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: background 0.3s, transform 0.2s;
 }
 
-@media (max-width: 700px) {
-    .map-box { width: 90%; }
+.back:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 750px) {
+    .map-box { width: 95%; }
     .map-box iframe { height: 250px; }
-    .map-btn { padding: 5px 6px; }
+    .map-btn { font-size: 14px; padding: 7px 10px; }
     .map-btn span { font-size: 11px; }
     .top-bar { flex-direction: column; gap: 5px; }
 }
@@ -112,13 +132,12 @@ body {
 <body>
 
 <div class="top-bar">
-    <img src="images.jpg">
+    <img src="images.jpg" alt="Logo 1">
     <div class="title">📍 Localisation et Couverture</div>
-    <img src="LOGO_TT_.jpg">
+    <img src="LOGO_TT_.jpg" alt="Logo 2">
 </div>
 
 <div class="maps-container">
-    <!-- Google Maps -->
     <div class="map-box">
         <button class="map-btn" onclick="detectLocation()">
             📍 Détecter ma position
@@ -128,7 +147,6 @@ body {
         <iframe id="googleMap" src=""></iframe>
     </div>
 
-    <!-- Tunisie Telecom -->
     <div class="map-box">
         <a id="ttMapLink" href="#" target="_blank" style="display:none; width:100%;">
             <button class="map-btn">
