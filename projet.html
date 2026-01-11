@@ -1,255 +1,34 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Localisation Intelligente</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f0f4f8;
-}
-
-/* TOP BAR */
-.top-bar {
-    background: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.top-bar img { height: 60px; }
-
-.title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-/* MAPS SIDE BY SIDE */
-.maps-container {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    height: calc(100vh - 120px);
-}
-
-.map-box {
-    flex: 1;
-    background: white;
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-}
-
-.map-box h3 {
-    text-align: center;
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.map-box iframe {
-    width: 100%;
-    flex: 1;
-    border: none;
-    border-radius: 10px;
-}
-
 /* BUTTONS ABOVE MAPS */
 .map-btn {
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 5px;
-    font-size: 16px;
+    font-size: 14px; /* صغر الخط */
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    background: #3498db;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* خلفية مزيانة */
     color: white;
-}
-
-.map-btn:hover {
-    background: #2980b9;
-}
-
-/* BACK BUTTON */
-.back {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-}
-</style>
-</head>
-<body>
-
-<!-- TOP -->
-<div class="top-bar">
-    <img src="images.jpg">
-    <div class="title">📍 Localisation Intelligente</div>
-    <img src="LOGO_TT_.jpg">
-</div>
-
-<!-- MAPS -->
-<div class="maps-container">
-    <div class="map-box">
-        <button class="map-btn" onclick="detectLocation()">📍 Détecter ma position</button>
-        <h3>Google Maps — Votre position actuelle</h3>
-        <iframe id="googleMap" src=""></iframe>
-    </div>
-
-    <div class="map-box">
-        <button class="map-btn" onclick="openTT()">🏠 Entrer mon adresse</button>
-        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
-        <iframe id="ttMap" src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
-    </div>
-</div>
-
-<a href="index.html"><button class="back">⬅ Retour</button></a>
-
-<script>
-function detectLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                let lat = position.coords.latitude;
-                let lng = position.coords.longitude;
-
-                let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-                document.getElementById("googleMap").src = url;
-            },
-            function() {
-                alert("Impossible d'accéder à votre position. Activez le GPS.");
-            }
-        );
-    } else {
-        alert("La géolocalisation n'est pas supportée par votre navigateur.");
-    }
-}
-
-function openTT() {
-    // إعادة تحميل iframe لخريطة التغطية
-    document.getElementById("ttMap").src = "https://geo.tunisietelecom.tn/mytaghtia/";
-}
-</script>
-
-</body>
-</html>
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.card h2 {
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
-.option-btn {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    font-size: 18px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: #3498db;
-    color: white;
-}
-
-.option-btn:hover {
-    background: #2980b9;
-}
-
-/* MAPS SIDE BY SIDE */
-.maps-container {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    height: calc(100vh - 250px);
-}
-
-.map-box {
-    flex: 1;
-    background: white;
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.map-box h3 {
-    text-align: center;
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.map-box iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 10px;
+.map-btn span {
+    font-size: 12px; /* للجملة بالعربي */
+    font-weight: normal;
+    color: #f0f4f8;
+    margin-top: 2px;
 }
 </style>
-</head>
-<body>
 
-<!-- TOP -->
-<div class="top-bar">
-    <img src="images.jpg">
-    <div class="title">📍 Localisation Intelligente</div>
-    <img src="LOGO_TT_.jpg">
-</div>
+<!-- داخل HTML فوق كل iframe -->
+<button class="map-btn" onclick="detectLocation()">
+    📍 Détecter ma position
+    <span>📡 اكتشف موقعي</span>
+</button>
 
-<!-- CARD -->
-<div class="card">
-    <h2>Localisez votre domicile automatiquement ou manuellement</h2>
-    <button class="option-btn" onclick="detectLocation()">📍 Détecter ma position automatiquement</button>
-</div>
-
-<!-- MAPS -->
-<div class="maps-container">
-    <div class="map-box">
-        <h3>Google Maps — Votre position actuelle</h3>
-        <iframe id="googleMap" src=""></iframe>
-    </div>
-
-    <div class="map-box">
-        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
-        <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
-    </div>
-</div>
-
-<a href="index.html"><button class="back">⬅ Retour</button></a>
-
-<script>
-function detectLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                let lat = position.coords.latitude;
-                let lng = position.coords.longitude;
-
-                // Google Maps iframe avec position actuelle
-                let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-                document.getElementById("googleMap").src = url;
-            },
-            function() {
-                alert("Impossible d'accéder à votre position. Activez le GPS.");
-            }
-        );
-    } else {
-        alert("La géolocalisation n'est pas supportée par votre navigateur.");
-    }
-}
-</script>
-
-</body>
-</html>
-
+<button class="map-btn" onclick="openTT()">
+    🏠 Entrer mon adresse
+    <span>🏠 أدخل عنواني</span>
+</button>
