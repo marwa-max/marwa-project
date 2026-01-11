@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Application de Localisation Intelligente</title>
+<title>Localisation Intelligente</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -61,14 +61,31 @@ body {
     background: #2980b9;
 }
 
-/* MAP */
-#map-container {
-    display: none;
-    height: 60vh;
-    margin: 10px;
+/* MAPS SIDE BY SIDE */
+.maps-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    height: calc(100vh - 250px);
 }
 
-iframe {
+.map-box {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.map-box h3 {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.map-box iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -81,23 +98,30 @@ iframe {
 <!-- TOP -->
 <div class="top-bar">
     <img src="images.jpg">
-    <div class="title">📍 Application de Localisation Intelligente</div>
+    <div class="title">📍 Localisation Intelligente</div>
     <img src="LOGO_TT_.jpg">
 </div>
 
 <!-- CARD -->
 <div class="card">
-    <h2>Comment souhaitez-vous localiser votre position ?</h2>
-
+    <h2>Localisez votre domicile automatiquement ou manuellement</h2>
     <button class="option-btn" onclick="detectLocation()">📍 Détecter ma position automatiquement</button>
-
-    <button class="option-btn" onclick="openTT()">🏠 Entrer mon adresse manuellement</button>
 </div>
 
-<!-- MAP -->
-<div id="map-container">
-    <iframe id="mapFrame"></iframe>
+<!-- MAPS -->
+<div class="maps-container">
+    <div class="map-box">
+        <h3>Google Maps — Votre position actuelle</h3>
+        <iframe id="googleMap" src=""></iframe>
+    </div>
+
+    <div class="map-box">
+        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
+        <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
+    </div>
 </div>
+
+<a href="index.html"><button class="back">⬅ Retour</button></a>
 
 <script>
 function detectLocation() {
@@ -107,11 +131,9 @@ function detectLocation() {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;
 
-                // Open Google Maps on your exact position
+                // Google Maps iframe avec position actuelle
                 let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-
-                document.getElementById("mapFrame").src = url;
-                document.getElementById("map-container").style.display = "block";
+                document.getElementById("googleMap").src = url;
             },
             function() {
                 alert("Impossible d'accéder à votre position. Activez le GPS.");
@@ -120,11 +142,6 @@ function detectLocation() {
     } else {
         alert("La géolocalisation n'est pas supportée par votre navigateur.");
     }
-}
-
-function openTT() {
-    document.getElementById("mapFrame").src = "https://geo.tunisietelecom.tn/mytaghtia/";
-    document.getElementById("map-container").style.display = "block";
 }
 </script>
 
