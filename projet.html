@@ -1,111 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Application de Localisation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Application de Localisation Intelligente</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f0f4f8;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f0f4f8;
+}
 
-        .top-bar {
-            background: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+/* TOP BAR */
+.top-bar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-        .top-bar img {
-            height: 60px;
-        }
+.top-bar img { height: 60px; }
 
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-            text-align: center;
-        }
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
 
-        .instructions {
-            background: white;
-            margin: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+/* CARD */
+.card {
+    background: white;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
 
-        .instructions p {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #2c3e50;
-            font-weight: bold;
-        }
+.card h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
 
-        .container {
-            padding: 10px;
-            height: calc(100vh - 220px);
-        }
+.option-btn {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
+}
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+.option-btn:hover {
+    background: #2980b9;
+}
 
-        .back {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+/* MAP */
+#map-container {
+    display: none;
+    height: 60vh;
+    margin: 10px;
+}
 
-        .back:hover {
-            background: #2980b9;
-        }
-    </style>
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
+</style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <img src="images.jpg" alt="Logo 1">
+<!-- TOP -->
+<div class="top-bar">
+    <img src="images.jpg">
+    <div class="title">📍 Application de Localisation Intelligente</div>
+    <img src="LOGO_TT_.jpg">
+</div>
 
-        <div class="title">📍 Vérification de la couverture</div>
+<!-- CARD -->
+<div class="card">
+    <h2>Comment souhaitez-vous localiser votre position ?</h2>
 
-        <img src="LOGO_TT_.jpg" alt="Logo 2">
-    </div>
+    <button class="option-btn" onclick="detectLocation()">📍 Détecter ma position automatiquement</button>
 
-    <!-- INSTRUCTIONS -->
-    <div class="instructions">
-        <p>🏠 1️⃣ Sélectionnez votre zone de résidence — وين تسكن</p>
-        <p>📌 2️⃣ Localisez précisément votre domicile sur la carte — مركي دارك</p>
-    </div>
+    <button class="option-btn" onclick="openTT()">🏠 Entrer mon adresse manuellement</button>
+</div>
 
-    <!-- MAP -->
-    <div class="container">
-        <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
-    </div>
+<!-- MAP -->
+<div id="map-container">
+    <iframe id="mapFrame"></iframe>
+</div>
 
-    <!-- BACK BUTTON -->
-    <a href="index.html">
-        <button class="back">⬅ Retour</button>
-    </a>
+<script>
+function detectLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+
+                // Open Google Maps on your exact position
+                let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+
+                document.getElementById("mapFrame").src = url;
+                document.getElementById("map-container").style.display = "block";
+            },
+            function() {
+                alert("Impossible d'accéder à votre position. Activez le GPS.");
+            }
+        );
+    } else {
+        alert("La géolocalisation n'est pas supportée par votre navigateur.");
+    }
+}
+
+function openTT() {
+    document.getElementById("mapFrame").src = "https://geo.tunisietelecom.tn/mytaghtia/";
+    document.getElementById("map-container").style.display = "block";
+}
+</script>
 
 </body>
 </html>
