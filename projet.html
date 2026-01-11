@@ -130,7 +130,7 @@ body {
 </style>
 </head>
 <body>
-
+<dv>
 <div class="top-bar">
     <img src="images.jpg" alt="Logo 1">
     <div class="title">📍 Localisation et Couverture</div>
@@ -164,16 +164,16 @@ body {
 </div>
 
 <a href="index.html"><button class="back">⬅ Retour</button></a>
-
+</dv>
 <script>
 function detectLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
                 let lat = position.coords.latitude;
-                let lng = position.coords.longitude;
-
-                // Google Maps marker
+       
+             let lng = position.coords.longitude;
+            // Google Maps marker
                 let gmapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed&t=&marker`;
                 document.getElementById("googleMap").src = gmapUrl;
 
@@ -194,4 +194,5 @@ function detectLocation() {
 
 </body>
 </html>
+
 
