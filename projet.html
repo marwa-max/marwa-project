@@ -1,34 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Localisation Intelligente</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f0f4f8;
+}
+
+/* TOP BAR */
+.top-bar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.top-bar img { height: 60px; }
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* MAPS SIDE BY SIDE */
+.maps-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    height: calc(100vh - 120px);
+}
+
+.map-box {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.map-box h3 {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.map-box iframe {
+    width: 100%;
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+}
+
 /* BUTTONS ABOVE MAPS */
 .map-btn {
-    padding: 8px;
+    padding: 6px 10px;
     margin-bottom: 5px;
-    font-size: 14px; /* صغر الخط */
+    font-size: 13px; /* صغار */
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    background: linear-gradient(135deg, #3498db, #2980b9); /* خلفية مزيانة */
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .map-btn span {
-    font-size: 12px; /* للجملة بالعربي */
+    font-size: 11px; /* الجملة بالعربي */
     font-weight: normal;
     color: #f0f4f8;
     margin-top: 2px;
 }
+
+.map-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+/* BACK BUTTON */
+.back {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 15px;
+    border-radius: 12px;
+    border: none;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+}
 </style>
+</head>
+<body>
 
-<!-- داخل HTML فوق كل iframe -->
-<button class="map-btn" onclick="detectLocation()">
-    📍 Détecter ma position
-    <span>📡 اكتشف موقعي</span>
-</button>
+<!-- TOP -->
+<div class="top-bar">
+    <img src="images.jpg">
+    <div class="title">📍 Localisation Intelligente</div>
+    <img src="LOGO_TT_.jpg">
+</div>
 
-<button class="map-btn" onclick="openTT()">
-    🏠 Entrer mon adresse
-    <span>🏠 أدخل عنواني</span>
-</button>
+<!-- MAPS -->
+<div class="maps-container">
+    <div class="map-box">
+        <button class="map-btn" onclick="detectLocation()">
+            📍 Détecter ma position
+            <span>📡 اكتشف موقعي</span>
+        </button>
+        <h3>Google Maps — Votre position actuelle</h3>
+        <iframe id="googleMap" src=""></iframe>
+    </div>
+
+    <div class="map-box">
+        <button class="map-btn" onclick="openTT()">
+            🏠 Entrer mon adresse
+            <span>🏠 أدخل عنواني</span>
+        </button>
+        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
+        <iframe id="ttMap" src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
+    </div>
+</div>
+
+<a href="index.html"><button class="back">⬅ Retour</button></a>
+
+<script>
+function detectLocation() {
+    if (navigator.ge
