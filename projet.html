@@ -2,17 +2,16 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Localisation Intelligente</title>
+<title>Localisation et Couverture</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to right, #e0f7fa, #e1bee7); /* arrière-plan joli */
+    background: linear-gradient(to right, #e0f7fa, #e1bee7);
 }
 
-/* TOP BAR */
 .top-bar {
     background: white;
     padding: 5px 15px;
@@ -30,22 +29,24 @@ body {
     color: #2c3e50;
 }
 
-/* MAPS SIDE BY SIDE */
 .maps-container {
     display: flex;
     gap: 10px;
     padding: 10px;
-    height: calc(100vh - 80px); /* أصغر height */
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .map-box {
-    flex: 1;
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0); /* arrière-plan map */
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
     border-radius: 10px;
     padding: 5px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 300px;
+    margin-bottom: 10px;
 }
 
 .map-box h3 {
@@ -56,16 +57,14 @@ body {
 
 .map-box iframe {
     width: 100%;
-    flex: 1;
+    height: 300px;
     border: none;
     border-radius: 8px;
 }
 
-/* BUTTONS ABOVE MAPS */
 .map-btn {
-    padding: 4px 8px;
-    margin-bottom: 5px;
-    font-size: 12px; /* أصغر */
+    padding: 6px 8px;
+    font-size: 14px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -76,10 +75,11 @@ body {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 5px;
 }
 
 .map-btn span {
-    font-size: 10px; /* الجملة بالعربي أصغر */
+    font-size: 12px;
     margin-top: 2px;
 }
 
@@ -88,7 +88,6 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* BACK BUTTON */
 .back {
     position: fixed;
     bottom: 10px;
@@ -100,34 +99,44 @@ body {
     color: white;
     cursor: pointer;
 }
+
+@media (max-width: 700px) {
+    .map-box { width: 90%; }
+    .map-box iframe { height: 250px; }
+    .map-btn { padding: 5px 6px; }
+    .map-btn span { font-size: 11px; }
+    .top-bar { flex-direction: column; gap: 5px; }
+}
 </style>
 </head>
 <body>
 
-<!-- TOP -->
 <div class="top-bar">
     <img src="images.jpg">
-    <div class="title">📍 Localisation Intelligente</div>
+    <div class="title">📍 Localisation et Couverture</div>
     <img src="LOGO_TT_.jpg">
 </div>
 
-<!-- MAPS -->
 <div class="maps-container">
+    <!-- Google Maps -->
     <div class="map-box">
         <button class="map-btn" onclick="detectLocation()">
             📍 Détecter ma position
             <span>📡 اكتشف موقعي</span>
         </button>
-        <h3>Google Maps — Votre position actuelle</h3>
+        <h3>Google Maps — Votre domicile</h3>
         <iframe id="googleMap" src=""></iframe>
     </div>
 
+    <!-- Tunisie Telecom -->
     <div class="map-box">
-        <button class="map-btn" onclick="openTT()">
-            🏠 Entrer mon adresse
-            <span>🏠 أدخل عنواني</span>
-        </button>
-        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
+        <a id="ttMapLink" href="#" target="_blank" style="display:none; width:100%;">
+            <button class="map-btn">
+                🏠 Vérifier couverture
+                <span>🏠 تحقق من الريزو</span>
+            </button>
+        </a>
+        <h3>Tunisie Telecom — Couverture</h3>
         <iframe id="ttMap" src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
     </div>
 </div>
@@ -142,8 +151,14 @@ function detectLocation() {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;
 
-                let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-                document.getElementById("googleMap").src = url;
+                // Google Maps marker
+                let gmapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed&t=&marker`;
+                document.getElementById("googleMap").src = gmapUrl;
+
+                // Tunisie Telecom link approximatif
+                let ttUrl = `https://geo.tunisietelecom.tn/mytaghtia/?lat=${lat}&lng=${lng}`;
+                document.getElementById("ttMapLink").href = ttUrl;
+                document.getElementById("ttMapLink").style.display = "inline-block";
             },
             function() {
                 alert("Impossible d'accéder à votre position. Activez le GPS.");
@@ -152,10 +167,6 @@ function detectLocation() {
     } else {
         alert("La géolocalisation n'est pas supportée par votre navigateur.");
     }
-}
-
-function openTT() {
-    document.getElementById("ttMap").src = "https://geo.tunisietelecom.tn/mytaghtia/";
 }
 </script>
 
