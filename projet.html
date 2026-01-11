@@ -30,10 +30,115 @@ body {
     color: #2c3e50;
 }
 
-/* CARD */
-.card {
+/* MAPS SIDE BY SIDE */
+.maps-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    height: calc(100vh - 120px);
+}
+
+.map-box {
+    flex: 1;
     background: white;
-    margin: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.map-box h3 {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.map-box iframe {
+    width: 100%;
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+}
+
+/* BUTTONS ABOVE MAPS */
+.map-btn {
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
+}
+
+.map-btn:hover {
+    background: #2980b9;
+}
+
+/* BACK BUTTON */
+.back {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP -->
+<div class="top-bar">
+    <img src="images.jpg">
+    <div class="title">📍 Localisation Intelligente</div>
+    <img src="LOGO_TT_.jpg">
+</div>
+
+<!-- MAPS -->
+<div class="maps-container">
+    <div class="map-box">
+        <button class="map-btn" onclick="detectLocation()">📍 Détecter ma position</button>
+        <h3>Google Maps — Votre position actuelle</h3>
+        <iframe id="googleMap" src=""></iframe>
+    </div>
+
+    <div class="map-box">
+        <button class="map-btn" onclick="openTT()">🏠 Entrer mon adresse</button>
+        <h3>🌐 Tunisie Telecom — Marquez votre domicile</h3>
+        <iframe id="ttMap" src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
+    </div>
+</div>
+
+<a href="index.html"><button class="back">⬅ Retour</button></a>
+
+<script>
+function detectLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+
+                let url = `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+                document.getElementById("googleMap").src = url;
+            },
+            function() {
+                alert("Impossible d'accéder à votre position. Activez le GPS.");
+            }
+        );
+    } else {
+        alert("La géolocalisation n'est pas supportée par votre navigateur.");
+    }
+}
+
+function openTT() {
+    // إعادة تحميل iframe لخريطة التغطية
+    document.getElementById("ttMap").src = "https://geo.tunisietelecom.tn/mytaghtia/";
+}
+</script>
+
+</body>
+</html>
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -147,3 +252,4 @@ function detectLocation() {
 
 </body>
 </html>
+
