@@ -1,119 +1,156 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Couverture Tunisie Telecom</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Application de Localisation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f0f4f8;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f0f4f8;
+}
 
-        header {
-            background: #3498db;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
+/* TOP BAR */
+.top-bar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-        .instructions {
-            background: white;
-            margin: 10px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+.top-bar img { height: 60px; }
 
-        .instructions p {
-            margin: 8px 0;
-            font-size: 18px;
-            color: #2c3e50;
-        }
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
 
-        .instructions .step {
-            font-weight: bold;
-            color: #3498db;
-        }
+/* CARD */
+.card {
+    background: white;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    animation: fadeIn 1s ease;
+}
 
-        .container {
-            padding: 10px;
-            height: calc(100vh - 220px);
-        }
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+}
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+.card p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
 
-        .back {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
 
-        .back:hover {
-            background: #2980b9;
-        }
-        .top-bar {
-            background: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-        .top-bar img {
-            height: 60px;
-        }
-    </style>
+button:hover {
+    background: #2980b9;
+}
+
+/* LOADING */
+#loading {
+    display: none;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+}
+
+/* MAP */
+#map-container {
+    display: none;
+    height: 60vh;
+    margin: 10px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+/* BACK */
+.back {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+</style>
 </head>
 <body>
 
-    <header class="top-bar">
-        <img src="images.jpg" alt="Logo 1">
-        <title>📍 Vérification de la couverture</title>
-        <img src="LOGO_TT_.jpg" alt="Logo 2">
-    </header>
+<!-- TOP -->
+<div class="top-bar">
+    <img src="images.jpg">
+    <div class="title">📍 Application de Localisation</div>
+    <img src="LOGO_TT_.jpg">
+</div>
 
-    <div class="instructions">
-        <p class="step"> Sélectionnez votre zone de résidence 1️⃣ وين تسكن 🏠</p>
-        <p class="step"> Localisez précisément votre domicile sur la carte  2️⃣ مركي دارك 📌</p>
-    </div>
+<!-- CARD -->
+<div class="card">
+    <p>🏠 1️⃣ Sélectionnez votre gouvernorat — وين تسكن</p>
+    <select>
+        <option>Kebili</option>
+        <option>Tunis</option>
+        <option>Sfax</option>
+        <option>Sousse</option>
+        <option>Gabès</option>
+    </select>
 
-    <div class="container">
-        <iframe 
-            src="https://geo.tunisietelecom.tn/mytaghtia/">
-        </iframe>
-    </div>
+    <p>📌 2️⃣ Sélectionnez votre délégation — مركي دارك</p>
+    <select>
+        <option>Centre</option>
+        <option>Nord</option>
+        <option>Sud</option>
+    </select>
 
-    <a href="index.html">
-        <button class="back">⬅ Retour</button>
-    </a>
+    <button onclick="openMap()">🔍 Vérifier la couverture</button>
+</div>
+
+<div id="loading">⏳ Chargement de la carte...</div>
+
+<!-- MAP -->
+<div id="map-container">
+    <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
+</div>
+
+<a href="index.html"><button class="back">⬅ Retour</button></a>
+
+<script>
+function openMap() {
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("map-container").style.display = "none";
+
+    setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("map-container").style.display = "block";
+    }, 2000);
+}
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
