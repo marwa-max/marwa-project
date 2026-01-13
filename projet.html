@@ -131,6 +131,42 @@ body {
             linear-gradient(135deg, #74ebd5, #ACB6E5);
     }
 }
+    /* INFO TOOLTIP */
+.info-container {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.info-text {
+    font-weight: bold;
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.info-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.info-container:hover .info-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 </style>
 </head>
 <body>
@@ -177,6 +213,16 @@ body {
         <button onclick="downloadPDF()">📄 Télécharger PDF</button>
         <button onclick="location.reload()">🔁 Modifier l’emplacement</button>
     </div>
+    <!-- INFO TOOLTIP -->
+<div class="info-container">
+    <span class="info-text">ℹ️ info</span>
+    <div class="info-tooltip">
+        <b>Introduction du rapport</b><br><br>
+        Dans le cadre de mon stage de perfectionnement effectué au sein de Tunisie Télécom, ce projet a été réalisé afin de renforcer mes compétences en développement web et en systèmes d’information en tant qu’étudiante en DSI à l’ISET de Kébili.
+Il consiste à concevoir une application web permettant la consultation de la couverture réseau de Tunisie Télécom selon la localisation géographique du client.
+Ce projet m’a permis d’appliquer les connaissances théoriques acquises dans un environnement professionnel réel et de mieux comprendre les exigences du secteur des télécommunications.
+    </div>
+</div>
 
 </div>
 
@@ -195,5 +241,6 @@ function downloadPDF() {
 
 </body>
 </html>
+
 
 
