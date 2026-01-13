@@ -9,13 +9,21 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* الخلفية فيها زوز تصاور */
+    background:
+        url("left.jpg") left center no-repeat,
+        url("right.jpg") right center no-repeat,
+        linear-gradient(135deg, #74ebd5, #ACB6E5);
+
+    background-size: 280px auto, 280px auto, cover;
 }
 
+/* الكارت الرئيسية */
 .main-card {
     background: white;
     width: 95%;
@@ -23,8 +31,10 @@ body {
     border-radius: 25px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.25);
     padding: 20px;
+    z-index: 2;
 }
 
+/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
@@ -40,33 +50,13 @@ body {
     color: #2c3e50;
 }
 
+/* INSTRUCTIONS */
 .instructions {
     text-align: center;
     margin-bottom: 15px;
 }
 
-/* MAP ZONE */
-.maps-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-}
-
-.side-img {
-    width: 160px;
-}
-
-.side-img img {
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.map-box {
-    flex: 1;
-}
-
+/* MAP */
 .map-box iframe {
     width: 100%;
     height: 380px;
@@ -113,16 +103,15 @@ body {
 
 /* PRINT */
 @media print {
+    body { background: white; }
     .actions, .instructions { display: none; }
 }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-    .maps-container {
-        flex-direction: column;
-    }
-    .side-img {
-        width: 100px;
+    body {
+        background:
+            linear-gradient(135deg, #74ebd5, #ACB6E5);
     }
 }
 </style>
@@ -143,27 +132,12 @@ body {
         <p>2️⃣ مركي دارك في الخريطة</p>
     </div>
 
-    <!-- MAP + IMAGES -->
-    <div class="maps-container">
-
-        <!-- LEFT IMAGE -->
-        <div class="side-img">
-            <img src="box2.jpeg">
-        </div>
-
-        <!-- MAP -->
-        <div class="map-box">
-            <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
-        </div>
-
-        <!-- RIGHT IMAGE -->
-        <div class="side-img">
-            <img src="box.png">
-        </div>
-
+    <!-- MAP -->
+    <div class="map-box">
+        <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
     </div>
 
-    <!-- RESULT BOX -->
+    <!-- RESULT -->
     <div class="result-box" id="resultBox">
         <p>📍 <b>Adresse approximative:</b> حسب اختيارك</p>
         <p>🆔 <b>Code Adresse:</b> 8GR58R5CJ</p>
@@ -197,4 +171,3 @@ function downloadPDF() {
 
 </body>
 </html>
-
