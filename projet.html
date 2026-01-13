@@ -14,13 +14,13 @@ body {
     justify-content: center;
     align-items: center;
 
-    /* الخلفية فيها زوز تصاور */
+    /* الخلفية فيها زوز تصاور كبار طولياً */
     background:
         url("box.png") left center no-repeat,
         url("box2.jpeg") right center no-repeat,
         linear-gradient(135deg, #74ebd5, #ACB6E5);
 
-    background-size: 280px auto, 280px auto, cover;
+    background-size: 280px 100%, 280px 100%, cover; /* طولياً */
 }
 
 /* الكارت الرئيسية */
@@ -48,6 +48,22 @@ body {
     font-size: 22px;
     font-weight: bold;
     color: #2c3e50;
+    text-align: center;
+}
+
+/* صور إضافية تحت العنوان */
+.extra-images {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.extra-images img {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    object-fit: cover;
 }
 
 /* INSTRUCTIONS */
@@ -126,6 +142,13 @@ body {
         <img src="images.jpg">
         <div class="title">📍 Couverture Tunisie Telecom</div>
         <img src="LOGO_TT_.jpg">
+    </div>
+
+    <!-- صور إضافية تحت العنوان -->
+    <div class="extra-images">
+        <img src="etape1.jpeg">
+        <img src="etape2.jpeg">
+        <img src="etape3.jpeg">
     </div>
 
     <div class="instructions">
