@@ -19,7 +19,7 @@ body {
 .main-card {
     background: white;
     width: 95%;
-    max-width: 900px;
+    max-width: 1000px;
     border-radius: 25px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.25);
     padding: 20px;
@@ -45,18 +45,31 @@ body {
     margin-bottom: 15px;
 }
 
+/* MAP ZONE */
 .maps-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-img {
+    width: 160px;
+}
+
+.side-img img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .map-box {
-    width: 100%;
+    flex: 1;
 }
 
 .map-box iframe {
     width: 100%;
-    height: 350px;
+    height: 380px;
     border: none;
     border-radius: 15px;
 }
@@ -94,12 +107,23 @@ body {
     color: white;
 }
 
-.actions button:last-child {
+.actions button:nth-child(4) {
     background: #e67e22;
 }
 
+/* PRINT */
 @media print {
     .actions, .instructions { display: none; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .maps-container {
+        flex-direction: column;
+    }
+    .side-img {
+        width: 100px;
+    }
 }
 </style>
 </head>
@@ -115,20 +139,33 @@ body {
     </div>
 
     <div class="instructions">
-        <p class="step">1️⃣ وين تسكن</p>
-        <p class="step">2️⃣ مركي دارك</p>
+        <p>1️⃣ وين تسكن</p>
+        <p>2️⃣ مركي دارك في الخريطة</p>
     </div>
 
-    <!-- MAP -->
+    <!-- MAP + IMAGES -->
     <div class="maps-container">
+
+        <!-- LEFT IMAGE -->
+        <div class="side-img">
+            <img src="box2.jpeg">
+        </div>
+
+        <!-- MAP -->
         <div class="map-box">
             <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
         </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="side-img">
+            <img src="box.png">
+        </div>
+
     </div>
 
     <!-- RESULT BOX -->
     <div class="result-box" id="resultBox">
-        <p>📍 <b>Adresse approximative:</b> (تتحدد حسب اختيارك)</p>
+        <p>📍 <b>Adresse approximative:</b> حسب اختيارك</p>
         <p>🆔 <b>Code Adresse:</b> 8GR58R5CJ</p>
         <p>📡 <b>Type réseau:</b> Fibre / 4G</p>
         <p>📶 <b>Qualité signal:</b> Bonne</p>
@@ -160,8 +197,3 @@ function downloadPDF() {
 
 </body>
 </html>
-
-
-
-
-
