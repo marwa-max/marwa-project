@@ -13,17 +13,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* الخلفية فيها زوز تصاور كبار طولياً */
     background:
         url("box1.jpg") left center no-repeat,
         url("fibre.jpg") right center no-repeat,
         linear-gradient(135deg, #74ebd5, #ACB6E5);
-
-    background-size: 200px 80%, 200px 80%, cover; /* طولياً */
+    background-size: 200px 80%, 200px 80%, cover;
 }
 
-/* الكارت الرئيسية */
+/* CARD */
 .main-card {
     background: white;
     width: 95%;
@@ -51,27 +48,53 @@ body {
     text-align: center;
 }
 
-/* صور إضافية تحت العنوان */
+/* ===== SLIDER ===== */
 .extra-images {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+    position: relative;
+    width: 100%;
+    height: 240px;
     margin: 15px 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f0f0f0;
 }
 
-.extra-images img {
-    width: 100px;
-    height: 100px;
-    border-radius: 15px;
-    object-fit: cover;
+.slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* INSTRUCTIONS */
-.instructions {
-    text-align: center;
-    margin-bottom: 15px;
-    font-weight: bold;
+.slider-track img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
+
+/* BUTTONS */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.55);
+    color: white;
+    border: none;
+    font-size: 28px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 5;
+    transition: 0.3s;
+}
+
+.slider-btn:hover {
+    background: rgba(0,0,0,0.85);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
 
 /* MAP */
 .map-box iframe {
@@ -81,7 +104,7 @@ body {
     border-radius: 15px;
 }
 
-/* RESULT BOX */
+/* RESULT */
 .result-box {
     margin-top: 15px;
     padding: 15px;
@@ -90,48 +113,7 @@ body {
     display: none;
 }
 
-.result-box p {
-    margin: 6px 0;
-    font-size: 16px;
-}
-
-/* BUTTONS */
-.actions {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.actions button {
-    flex: 1;
-    padding: 12px;
-    border-radius: 14px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    background: linear-gradient(135deg, #3498db, #6dd5fa);
-    color: white;
-}
-
-.actions button:nth-child(4) {
-    background: #e67e22;
-}
-
-/* PRINT */
-@media print {
-    body { background: white; }
-    .actions, .instructions { display: none; }
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    body {
-        background:
-            linear-gradient(135deg, #74ebd5, #ACB6E5);
-    }
-}
-    /* INFO TOOLTIP */
+/* INFO */
 .info-container {
     position: relative;
     text-align: center;
@@ -167,8 +149,16 @@ body {
     visibility: visible;
     opacity: 1;
 }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    body {
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    }
+}
 </style>
 </head>
+
 <body>
 
 <div class="main-card" id="contentToPrint">
@@ -180,57 +170,68 @@ body {
         <img src="LOGO_TT_.jpg">
     </div>
 
-    <!-- صور إضافية تحت العنوان -->
-    <div class="extra-images">
-        <img src="etape1.jpeg">
-        <img src="etape2.jpeg">
-        <img src="etape3.jpg">
+    <!-- SLIDER -->
+    <div class="extra-images" onmouseenter="pauseSlider()" onmouseleave="resumeSlider()">
+
+        <div class="slider-track" id="sliderTrack">
+            <img src="etape1.jpeg">
+            <img src="etape2.jpeg">
+            <img src="etape3.jpg">
+        </div>
+
+        <button class="slider-btn prev" onclick="prevSlide()">◀</button>
+        <button class="slider-btn next" onclick="nextSlide()">▶</button>
+
     </div>
+
     <!-- MAP -->
     <div class="map-box">
         <iframe src="https://geo.tunisietelecom.tn/mytaghtia/"></iframe>
     </div>
 
-    <!-- RESULT -->
-    <div class="result-box" id="resultBox">
-        <p>📍 <b>Adresse approximative:</b> حسب اختيارك</p>
-        <p>🆔 <b>Code Adresse:</b> 8GR58R5CJ</p>
-        <p>📡 <b>Type réseau:</b> Fibre / 4G</p>
-        <p>📶 <b>Qualité signal:</b> Bonne</p>
-        <p>💡 <b>Offre proposée:</b> NETBOX</p>
+    <!-- INFO -->
+    <div class="info-container">
+        <span class="info-text">ℹ️ info</span>
+        <div class="info-tooltip">
+            <b>Introduction du rapport</b><br><br>
+            Dans le cadre de mon stage de perfectionnement effectué au sein de Tunisie Télécom,
+            ce projet a été réalisé afin de renforcer mes compétences en développement web.
+        </div>
     </div>
-    <!-- INFO TOOLTIP -->
-<div class="info-container">
-    <span class="info-text">ℹ️ info</span>
-    <div class="info-tooltip">
-        <b>Introduction du rapport</b><br><br>
-        Dans le cadre de mon stage de perfectionnement effectué au sein de Tunisie Télécom, ce projet a été réalisé afin de renforcer mes compétences en développement web et en systèmes d’information en tant qu’étudiante en DSI à l’ISET de Kébili.
-Il consiste à concevoir une application web permettant la consultation de la couverture réseau de Tunisie Télécom selon la localisation géographique du client.
-Ce projet m’a permis d’appliquer les connaissances théoriques acquises dans un environnement professionnel réel et de mieux comprendre les exigences du secteur des télécommunications.
-    </div>
-</div>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+<!-- SCRIPT SLIDER -->
 <script>
-function showResult() {
-    document.getElementById("resultBox").style.display = "block";
+let currentSlide = 0;
+const sliderTrack = document.getElementById("sliderTrack");
+const slides = sliderTrack.children;
+const totalSlides = slides.length;
+
+let interval = setInterval(nextSlide, 4000);
+
+function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
-function downloadPDF() {
-    const element = document.getElementById("contentToPrint");
-    html2pdf().from(element).save("resultat-couverture.pdf");
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+}
+
+function pauseSlider() {
+    clearInterval(interval);
+}
+
+function resumeSlider() {
+    interval = setInterval(nextSlide, 4000);
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
