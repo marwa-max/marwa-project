@@ -13,13 +13,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
     background:
         url("box1.jpg") left center no-repeat,
         url("fibre.jpg") right center no-repeat,
         linear-gradient(135deg, #74ebd5, #ACB6E5);
 
-    /* كبّرنا صور الجنب */
-    background-size: 320px 95%, 320px 95%, cover;
+    background-size: 340px 95%, 340px 95%, cover;
 }
 
 /* CARD */
@@ -48,6 +48,22 @@ body {
     font-weight: bold;
     color: #2c3e50;
     text-align: center;
+}
+
+/* LANGUAGE SWITCH */
+.lang-switch {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.lang-switch button {
+    padding: 6px 14px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
 }
 
 /* ===== SLIDER ===== */
@@ -90,11 +106,6 @@ body {
     transition: 0.3s;
 }
 
-.slider-btn:hover {
-    background: rgba(0,0,0,0.85);
-    transform: translateY(-50%) scale(1.1);
-}
-
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
 
@@ -106,13 +117,13 @@ body {
     border-radius: 15px;
 }
 
-/* BUTTON MAP */
+/* BUTTON OTHER MAP */
 .map-button-container {
     text-align: center;
     margin: 20px 0;
 }
 
-.map-button-container a button {
+.map-button-container button {
     padding: 14px 30px;
     font-size: 17px;
     border: none;
@@ -120,13 +131,6 @@ body {
     background: #e74c3c;
     color: white;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: 0.3s;
-}
-
-.map-button-container a button:hover {
-    transform: scale(1.05);
-    background: #c0392b;
 }
 
 /* INFO */
@@ -165,13 +169,6 @@ body {
     visibility: visible;
     opacity: 1;
 }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    body {
-        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
-    }
-}
 </style>
 </head>
 
@@ -182,8 +179,15 @@ body {
     <!-- HEADER -->
     <div class="header">
         <img src="images.jpg">
-        <div class="title">📍 Mon projet</div>
+        <div class="title" id="titleText">📍 Mon projet</div>
         <img src="LOGO_TT_.jpg">
+    </div>
+
+    <!-- LANGUAGE SWITCH -->
+    <div class="lang-switch">
+        <button onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('ar')">AR</button>
+        <button onclick="setLang('en')">EN</button>
     </div>
 
     <!-- SLIDER -->
@@ -205,52 +209,68 @@ body {
     <!-- BUTTON OTHER MAP -->
     <div class="map-button-container">
         <a href="map.html">
-            <button>🏢 Trouver un espace TT</button>
+            <button id="mapBtn">🏢 Trouver un espace TT</button>
         </a>
     </div>
 
     <!-- INFO -->
     <div class="info-container">
-        <span class="info-text">ℹ️ info</span>
-        <div class="info-tooltip">
-            <b>Introduction du rapport</b><br><br>
-            Dans le cadre de mon stage de perfectionnement effectué au sein de Tunisie Télécom,
-            ce projet a été réalisé afin de renforcer mes compétences en développement web.
-        </div>
+        <span class="info-text" id="infoLabel">ℹ️ info</span>
+        <div class="info-tooltip" id="infoText"></div>
     </div>
 
 </div>
 
-<!-- SCRIPT SLIDER -->
+<!-- SCRIPT -->
 <script>
+/* ===== SLIDER ===== */
 let currentSlide = 0;
 const sliderTrack = document.getElementById("sliderTrack");
 const slides = sliderTrack.children;
 const totalSlides = slides.length;
-
 let interval = setInterval(nextSlide, 4000);
 
 function updateSlider() {
     sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
-
 function nextSlide() {
     currentSlide = (currentSlide + 1) % totalSlides;
     updateSlider();
 }
-
 function prevSlide() {
     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
     updateSlider();
 }
+function pauseSlider() { clearInterval(interval); }
+function resumeSlider() { interval = setInterval(nextSlide, 4000); }
 
-function pauseSlider() {
-    clearInterval(interval);
+/* ===== TRANSLATION ===== */
+const texts = {
+    fr: {
+        title: "📍 Mon projet",
+        mapBtn: "🏢 Trouver un espace TT",
+        info: "<b>Introduction du rapport</b><br><br>Dans le cadre de mon stage de perfectionnement effectué au sein de Tunisie Télécom, ce projet a été réalisé afin de renforcer mes compétences en développement web."
+    },
+    ar: {
+        title: "📍 مشروعي",
+        mapBtn: "🏢 إيجاد فضاء اتصالات تونس",
+        info: "<b>مقدمة التقرير</b><br><br>في إطار التدريب التطبيقي الذي قمت به في شركة اتصالات تونس، تم إنجاز هذا المشروع من أجل تطوير مهاراتي في تطوير الويب."
+    },
+    en: {
+        title: "📍 My project",
+        mapBtn: "🏢 Find a TT space",
+        info: "<b>Report introduction</b><br><br>As part of my internship at Tunisie Telecom, this project was carried out to improve my web development skills."
+    }
+};
+
+function setLang(lang) {
+    document.getElementById("titleText").innerHTML = texts[lang].title;
+    document.getElementById("mapBtn").innerHTML = texts[lang].mapBtn;
+    document.getElementById("infoText").innerHTML = texts[lang].info;
 }
 
-function resumeSlider() {
-    interval = setInterval(nextSlide, 4000);
-}
+// لغة افتراضية
+setLang("fr");
 </script>
 
 </body>
