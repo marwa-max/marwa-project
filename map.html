@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Trouver un espace TT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* CONTAINER */
+.container {
+    width: 95%;
+    max-width: 1100px;
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+/* HEADER */
+h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #3498db;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #2a7bbd;
+}
+
+/* MAP */
+.map-frame {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* LANG SWITCH */
+.lang-switch {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.lang-switch button {
+    padding: 6px 14px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #3498db;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LANGUAGE SWITCH -->
+    <div class="lang-switch">
+        <button onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('ar')">AR</button>
+        <button onclick="setLang('en')">EN</button>
+    </div>
+
+    <!-- BACK BUTTON -->
+    <a href="projet.html" class="back-btn" id="backBtn">⬅️ Retour à l'accueil</a>
+
+    <!-- PAGE TITLE -->
+    <h2 id="pageTitle">📍 Trouver un espace Tunisie Telecom</h2>
+
+    <!-- GOOGLE MAP EMBED -->
+    <iframe class="map-frame"
+        src="https://www.google.com/maps/search/Tunisie+Telecom+Espace+TT+Tunisie/"
+        allowfullscreen>
+    </iframe>
+
+    <!-- INFO TEXT -->
+    <p id="infoText" style="margin-top:10px; color:#555; font-size:14px;">
+        Vous pouvez utiliser cette carte pour trouver les espaces TT près de vous.
+    </p>
+
+</div>
+
+<script>
+// ===== TRANSLATION =====
+const texts = {
+    fr: {
+        backBtn: "⬅️ Retour à l'accueil",
+        pageTitle: "📍 Trouver un espace Tunisie Telecom",
+        infoText: "Vous pouvez utiliser cette carte pour trouver les espaces TT près de vous."
+    },
+    ar: {
+        backBtn: "⬅️ الرجوع للصفحة الرئيسية",
+        pageTitle: "📍 إيجاد فضاء اتصالات تونس",
+        infoText: "يمكنك استخدام هذه الخريطة للعثور على فضاءات اتصالات تونس القريبة منك."
+    },
+    en: {
+        backBtn: "⬅️ Back to Home",
+        pageTitle: "📍 Find a Tunisie Telecom space",
+        infoText: "You can use this map to find nearby Tunisie Telecom spaces."
+    }
+};
+
+function setLang(lang) {
+    document.getElementById("backBtn").innerHTML = texts[lang].backBtn;
+    document.getElementById("pageTitle").innerHTML = texts[lang].pageTitle;
+    document.getElementById("infoText").innerHTML = texts[lang].infoText;
+
+    // اللغة العربية RTL
+    if(lang === 'ar'){
+        document.body.dir = "rtl";
+    } else {
+        document.body.dir = "ltr";
+    }
+}
+
+// DEFAULT LANGUAGE
+setLang('fr');
+</script>
+
+</body>
+</html>
