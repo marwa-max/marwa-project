@@ -5,6 +5,9 @@
 <title>Trouver un espace TT</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 <style>
 body {
     margin: 0;
@@ -16,7 +19,6 @@ body {
     min-height: 100vh;
 }
 
-/* CONTAINER */
 .container {
     width: 95%;
     max-width: 1100px;
@@ -27,13 +29,11 @@ body {
     text-align: center;
 }
 
-/* HEADER */
 h2 {
     color: #2c3e50;
     margin-bottom: 10px;
 }
 
-/* BACK BUTTON */
 .back-btn {
     display: inline-block;
     margin-bottom: 10px;
@@ -53,16 +53,7 @@ h2 {
     background: #2a7bbd;
 }
 
-/* MAP */
-.map-frame {
-    width: 100%;
-    height: 500px;
-    border: none;
-    border-radius: 15px;
-    margin-top: 10px;
-}
-
-/* LANG SWITCH */
+/* LANGUAGE SWITCH */
 .lang-switch {
     text-align: center;
     margin-bottom: 10px;
@@ -77,9 +68,16 @@ h2 {
     background: #3498db;
     color: white;
 }
+
+/* MAP */
+#map {
+    width: 100%;
+    height: 500px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
 </style>
 </head>
-
 <body>
 
 <div class="container">
@@ -92,41 +90,40 @@ h2 {
     </div>
 
     <!-- BACK BUTTON -->
-    <a href="projet.html" class="back-btn" id="backBtn">⬅️ Retour à l'accueil</a>
+    <a href="index.html" class="back-btn" id="backBtn">⬅️ Retour à l'accueil</a>
 
     <!-- PAGE TITLE -->
     <h2 id="pageTitle">📍 Trouver un espace Tunisie Telecom</h2>
 
-    <!-- GOOGLE MAP EMBED -->
-    <iframe class="map-frame"
-        src="https://www.google.com/maps/search/Tunisie+Telecom+Espace+TT+Tunisie/"
-        allowfullscreen>
-    </iframe>
+    <!-- MAP -->
+    <div id="map"></div>
 
     <!-- INFO TEXT -->
     <p id="infoText" style="margin-top:10px; color:#555; font-size:14px;">
-        Vous pouvez utiliser cette carte pour trouver les espaces TT près de vous.
+        Vous pouvez cliquer sur chaque point pour voir le nom et l'adresse de l'Espace TT.
     </p>
 
 </div>
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 // ===== TRANSLATION =====
 const texts = {
     fr: {
         backBtn: "⬅️ Retour à l'accueil",
         pageTitle: "📍 Trouver un espace Tunisie Telecom",
-        infoText: "Vous pouvez utiliser cette carte pour trouver les espaces TT près de vous."
+        infoText: "Vous pouvez cliquer sur chaque point pour voir le nom et l'adresse de l'Espace TT."
     },
     ar: {
         backBtn: "⬅️ الرجوع للصفحة الرئيسية",
         pageTitle: "📍 إيجاد فضاء اتصالات تونس",
-        infoText: "يمكنك استخدام هذه الخريطة للعثور على فضاءات اتصالات تونس القريبة منك."
+        infoText: "يمكنك الضغط على كل نقطة لرؤية اسم وعنوان فضاء اتصالات تونس."
     },
     en: {
         backBtn: "⬅️ Back to Home",
         pageTitle: "📍 Find a Tunisie Telecom space",
-        infoText: "You can use this map to find nearby Tunisie Telecom spaces."
+        infoText: "You can click on each point to see the name and address of the TT Space."
     }
 };
 
@@ -135,7 +132,6 @@ function setLang(lang) {
     document.getElementById("pageTitle").innerHTML = texts[lang].pageTitle;
     document.getElementById("infoText").innerHTML = texts[lang].infoText;
 
-    // اللغة العربية RTL
     if(lang === 'ar'){
         document.body.dir = "rtl";
     } else {
@@ -143,8 +139,33 @@ function setLang(lang) {
     }
 }
 
-// DEFAULT LANGUAGE
+// default language
 setLang('fr');
+
+// ===== LEAFLET MAP =====
+const map = L.map('map').setView([36.8, 10.2], 7); // مركز تونس
+
+// tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// ===== TT SPACES =====
+const espacesTT = [
+    {name: "Espace TT Tunis Centre", address:"Avenue Habib Bourguiba, Tunis", coords:[36.8008, 10.1825]},
+    {name: "Espace TT La Marsa", address:"Route de La Marsa, La Marsa", coords:[36.875, 10.330]},
+    {name: "Espace TT Sousse", address:"Avenue Hedi Chaker, Sousse", coords:[35.8256, 10.636]},
+    {name: "Espace TT Sfax", address:"Rue Habib Bourguiba, Sfax", coords:[34.7406, 10.760]},
+    {name: "Espace TT Bizerte", address:"Rue de la Liberté, Bizerte", coords:[37.2742, 9.873]},
+    {name: "Espace TT Kairouan", address:"Avenue Habib Bourguiba, Kairouan", coords:[35.6789, 10.101]},
+    // زيد أي فضاء تحب
+];
+
+// إضافة markers
+espacesTT.forEach(function(e){
+    L.marker(e.coords).addTo(map)
+        .bindPopup("<b>"+e.name+"</b><br>"+e.address);
+});
 </script>
 
 </body>
