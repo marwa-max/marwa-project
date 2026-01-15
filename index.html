@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>stage de perfectionnement- DSI</title>
+<title>stage de perfectionnement- DSI</title>  
 
 <style>
 body {
@@ -40,8 +40,22 @@ body {
     margin-bottom: 20px;
 }
 
+/* Container for each logo and its texts */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container span {
+    font-size: 12px;
+    color: #555;
+}
+
+/* Logo images */
 .logos img {
     height: 60px;
+    margin: 5px 0;
 }
 
 h1 {
@@ -91,8 +105,19 @@ button:hover {
 <div class="card">
 
     <div class="logos">
-        <img src="images.jpg" alt="Logo 1">
-        <img src="LOGO_TT_.jpg" alt="Logo 2">
+        <!-- Logo 1 with texts -->
+        <div class="logo-container">
+            <span>étudiante en</span>
+            <img src="images.jpg" alt="Logo 1">
+            <span>Kibeli</span>
+        </div>
+
+        <!-- Logo 2 with texts -->
+        <div class="logo-container">
+            <span>au sein de</span>
+            <img src="LOGO_TT_.jpg" alt="Logo 2">
+            <span>Mahdia</span>
+        </div>
     </div>
 
     <h1>stage de perfectionnement</h1>
@@ -106,18 +131,11 @@ button:hover {
         <p><span>periode de stage :</span> du 01/01/2026 au  01/30/2026</p>
         <p><span>Année universitaire :</span> 2025 / 2026</p>
     </div>
-         <a href="projet.html">
-             <button>Accéder au projet</button>
-         </a>
+     <a href="projet.html">  
+         <button>Accéder au projet</button>
+     </a>
 
 </div>
 
 </body>
 </html>
-
-
-
-
-
-
-
