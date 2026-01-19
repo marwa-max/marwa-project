@@ -54,6 +54,14 @@ body {
 
 .map-button-container { text-align:center; margin:20px 0; }
 .map-button-container button { padding:14px 30px; font-size:17px; border:none; border-radius:30px; background:#e74c3c; color:white; cursor:pointer; }
+    /* BUTTON NAVIGATION */
+.nav-buttons { width:100%; max-width:1000px; display:flex; justify-content:space-between; margin-bottom:10px; }
+.nav-buttons a button {
+    padding:10px 20px; font-size:16px; border:none; border-radius:15px;
+    background:#2ecc71; color:white; cursor:pointer;
+    transition:0.3s;
+}
+.nav-buttons a button:hover { background:#27ae60; }
 
 /* INFO TOOLTIP */
 .info-container { position:relative; text-align:center; margin-top:15px; }
@@ -87,11 +95,11 @@ body {
     <div class="extra-images" onmouseenter="pauseSlider()" onmouseleave="resumeSlider()">
         <div class="slider-track" id="sliderTrack">
             <div class="slide">
-                <img id="img1" src="e2.png">
+                <img id="img1" src="e1.png">
                 <div class="slide-text" id="txt1">Étape 1</div>
             </div>
             <div class="slide">
-                <img id="img2" src="t2.png">
+                <img id="img2" src="t1.png">
                 <div class="slide-text" id="txt2">Étape 2</div>
             </div>
         </div>
@@ -113,6 +121,10 @@ body {
         <span class="info-text">ℹ️ info</span>
         <div class="info-tooltip" id="infoText">Cliquez ici pour plus d'informations.</div>
     </div>
+    <!-- NAVIGATION BUTTONS -->
+<div class="nav-buttons">
+    <a href="index.html"><button>← Retour</button></a>
+</div>
 
 </div>
 
@@ -144,6 +156,9 @@ function setLang(lang){
     document.getElementById("img2").src=texts[lang].img2;
     document.getElementById("txt1").innerHTML=texts[lang].etape1;
     document.getElementById("txt2").innerHTML=texts[lang].etape2;
+    // تبديل نص الزر حسب اللغة
+    const retour = { fr:"← Retour", ar:"عودة ←", en:"← Back" };
+    document.getElementById("btnRetour").innerHTML = retour[lang];
     currentSlide=0; updateSlider();
 }
 
@@ -151,5 +166,6 @@ function setLang(lang){
 </script>
 </body>
 </html>
+
 
 
