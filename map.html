@@ -136,9 +136,6 @@ body {
         <a href="index.html">
             <button class="btn-back" id="backBtn">← Retour</button>
         </a>
-        <a href="page2.html">
-            <button class="btn-next" id="nextBtn">Suivant →</button>
-        </a>
     </div>
 
 </div>
@@ -149,19 +146,16 @@ const texts = {
         title: "📍 Carte des agences",
         desc: "Cliquez pour connaître l’agence la plus proche de chez vous",
         back: "← Retour",
-        next: "Suivant →"
     },
     ar: {
         title: "📍 خريطة الوكالات",
         desc: "اضغط لتعرف أقرب مقرّ إليك",
         back: "← عودة",
-        next: "التالي →"
     },
     en: {
         title: "📍 Agencies map",
         desc: "Click to find the nearest agency to you",
         back: "← Back",
-        next: "Next →"
     }
 };
 
@@ -169,7 +163,6 @@ function setLang(lang) {
     document.getElementById("titleText").innerHTML = texts[lang].title;
     document.getElementById("descText").innerHTML = texts[lang].desc;
     document.getElementById("backBtn").innerHTML = texts[lang].back;
-    document.getElementById("nextBtn").innerHTML = texts[lang].next;
 }
 
 // لغة افتراضية
