@@ -6,9 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
-    margin:0; font-family:'Segoe UI', Tahoma, sans-serif;
-    display:flex; justify-content:center; align-items:center;
-    min-height:100vh; background:#74ebd5;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        url("fibre.jpg") left center no-repeat, /* الصورة على اليسار */
+        url("box1.jpg") right center no-repeat, /* الصورة على اليمين */
+        linear-gradient(135deg, #74ebd5, #ACB6E5);
+
+    background-size: 340px 95%, 340px 95%, cover;
 }
 
 .main-card {
@@ -141,4 +151,5 @@ function setLang(lang){
 </script>
 </body>
 </html>
+
 
