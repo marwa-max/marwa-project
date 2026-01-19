@@ -2,115 +2,178 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Tunisie Telecom - Trouver un Espace TT</title>
+<title>Carte Tunisie Telecom</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, sans-serif;
+    min-height: 100vh;
     background: linear-gradient(135deg, #74ebd5, #ACB6E5);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
-.container {
-    width: 95%;
-    max-width: 600px;
+/* CARD */
+.main-card {
     background: white;
+    width: 95%;
+    max-width: 1000px;
     border-radius: 25px;
-    padding: 40px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.header img { height: 55px; }
+
+.title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50;
     text-align: center;
 }
 
-h2 {
-    color: #2c3e50;
-    margin-bottom: 20px;
+/* LANGUAGE SWITCH */
+.lang-switch {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.button-tt {
-    padding: 15px 35px;
+.lang-switch button {
+    padding: 6px 14px;
+    margin: 0 5px;
     border: none;
-    border-radius: 30px;
-    background: #e74c3c;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #3498db;
     color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: none;
-}
-
-.button-tt:hover {
-    background: #c0392b;
-}
-
-.lang-select {
-    margin-bottom: 25px;
-    padding: 8px 12px;
     font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+}
+
+/* DESCRIPTION */
+.description {
+    text-align: center;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* MAP */
+.map-box iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 15px;
+}
+
+/* BUTTONS */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.buttons a button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
+    color: white;
+}
+
+.btn-back {
+    background: #7f8c8d;
+}
+
+.btn-next {
+    background: #e74c3c;
 }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-    <!-- اختيار اللغة -->
-    <select id="language" class="lang-select" onchange="changeLang(this.value)">
-        <option value="fr" selected>FR</option>
-        <option value="ar">AR</option>
-        <option value="en">EN</option>
-    </select>
+<div class="main-card">
 
-    <h2 id="title">🔎 Trouver un Espace TT</h2>
+    <!-- HEADER -->
+    <div class="header">
+        <img src="images.jpg">
+        <div class="title" id="titleText">📍 Carte des agences</div>
+        <img src="LOGO_TT_.jpg">
+    </div>
 
-    <p id="description">
-        En cliquant sur le bouton ci-dessous, vous serez redirigé vers le site officiel de Tunisie Telecom.
-        Sur cette page, vous pourrez localiser les espaces TT les plus proches de votre position et obtenir des informations détaillées sur chaque agence.
-    </p>
+    <!-- LANGUAGE SWITCH -->
+    <div class="lang-switch">
+        <button onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('ar')">AR</button>
+        <button onclick="setLang('en')">EN</button>
+    </div>
 
-    <a id="ttButton" href="https://www.tunisietelecom.tn/particulier/trouver-un-espace-tt/" target="_blank" class="button-tt">
-        Accéder à la page officielle
-    </a>
+    <!-- DESCRIPTION -->
+    <div class="description" id="descText">
+        Cliquez pour connaître l’agence la plus proche de chez vous
+    </div>
+
+    <!-- MAP -->
+    <div class="map-box">
+        <iframe id="mapFrame" src="https://geo.tunisietelecom.tn/ett/"></iframe>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="buttons">
+        <a href="index.html">
+            <button class="btn-back" id="backBtn">← Retour</button>
+        </a>
+        <a href="page2.html">
+            <button class="btn-next" id="nextBtn">Suivant →</button>
+        </a>
+    </div>
+
 </div>
 
 <script>
-// النصوص حسب اللغة
-const translations = {
+const texts = {
     fr: {
-        title: "🔎 Trouver un Espace TT",
-        description: "En cliquant sur le bouton ci-dessous, vous serez redirigé vers le site officiel de Tunisie Telecom. Sur cette page, vous pourrez localiser les espaces TT les plus proches de votre position et obtenir des informations détaillées sur chaque agence.",
-        button: "Accéder à la page officielle"
+        title: "📍 Carte des agences",
+        desc: "Cliquez pour connaître l’agence la plus proche de chez vous",
+        back: "← Retour",
+        next: "Suivant →"
     },
     ar: {
-        title: "🔎 العثور على Espace TT",
-        description: "بالضغط على الزر أدناه، سيتم توجيهك إلى الموقع الرسمي لشركة تونس للاتصالات. في هذه الصفحة، يمكنك تحديد أقرب فضاءات TT إلى موقعك والحصول على معلومات مفصلة عن كل وكالة.",
-        button: "الانتقال إلى الصفحة الرسمية"
+        title: "📍 خريطة الوكالات",
+        desc: "اضغط لتعرف أقرب مقرّ إليك",
+        back: "← عودة",
+        next: "التالي →"
     },
     en: {
-        title: "🔎 Find a TT Space",
-        description: "By clicking the button below, you will be redirected to the official Tunisie Telecom website. On this page, you can locate the nearest TT spaces to your location and get detailed information about each branch.",
-        button: "Go to the official page"
+        title: "📍 Agencies map",
+        desc: "Click to find the nearest agency to you",
+        back: "← Back",
+        next: "Next →"
     }
 };
 
-// دالة تغيير اللغة
-function changeLang(lang) {
-    document.getElementById("title").innerText = translations[lang].title;
-    document.getElementById("description").innerText = translations[lang].description;
-    document.getElementById("ttButton").innerText = translations[lang].button;
+function setLang(lang) {
+    document.getElementById("titleText").innerHTML = texts[lang].title;
+    document.getElementById("descText").innerHTML = texts[lang].desc;
+    document.getElementById("backBtn").innerHTML = texts[lang].back;
+    document.getElementById("nextBtn").innerHTML = texts[lang].next;
 }
+
+// لغة افتراضية
+setLang("fr");
 </script>
 
 </body>
